@@ -1,0 +1,177 @@
+<hta:application
+    id="JavesViewer"
+    applicationName="Javes Imagem"
+    border="thick"
+    borderstyle="normal"
+    maximizebutton="yes"
+    minimizebutton="yes"
+    navigable="no"
+    scroll="no"
+    showintaskbar="yes"
+    singleinstance="yes"
+    contextmenu="yes"
+    transparency="yes"
+
+/>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Javes Imagem</title>
+<script language="VBScript">
+    Dim imgElement
+    Dim zoomLevel
+
+    Sub Window_OnLoad
+        Set imgElement = Document.getElementById("previewImage")
+        zoomLevel = 100
+        window.resizeTo 900, 700
+    End Sub
+
+    Sub OpenFile
+        Document.getElementById("fileInput").Click
+    End Sub
+
+    Sub HandleFileSelect
+        Dim filePath
+        filePath = Document.getElementById("fileInput").value
+
+        If filePath <> "" Then
+            imgElement.src = "File:///" & Replace(filePath, "\", "/")
+            imgElement.style.zoom = zoomLevel & "%"
+            Document.title = "Javes Imagem - " & filePath
+        End If
+    End Sub
+
+    Sub ZoomIn
+        zoomLevel = zoomLevel + 20
+        imgElement.style.zoom = zoomLevel & "%"
+    End Sub
+
+    Sub ZoomOut
+        If zoomLevel > 20 Then
+            zoomLevel = zoomLevel - 20
+            imgElement.style.zoom = zoomLevel & "%"
+        End If
+    End Sub
+
+    Sub CloseApp
+        self.close
+    End Sub
+
+</script>
+
+
+</head>
+
+<body>
+<div id="mainBox">
+<center>
+    <div class="controls">
+        <button onclick="OpenFile">Procurar Imagem</button>
+        <button onclick="ZoomIn">Zoom +</button>
+        <button onclick="ZoomOut">Zoom -</button>
+        <button onclick="CloseApp">Fechar</button>
+    </div>
+
+    <div id="imageContainer">
+        <img id="previewImage">
+    </div>
+
+    <input type="file"
+           id="fileInput"
+           accept="image/*"
+           onchange="HandleFileSelect"
+           style="display:none">
+
+</div>
+</center>
+<style>
+
+
+
+
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: black;
+        color-font:cyan;
+        font-family: Arial, sans-serif;
+        display: flex; justify-content: center; align-items: center;
+       /* background-image: url("fundo.jpg");*/
+  /* Cor branca com 50% de transparência */
+ 
+    }
+
+
+    /* CAIXA MAIOR FUNDO PRINCIPAL */
+    #mainBox {
+ 
+        background-color: black;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+        /*background-image: url("fundo.jpg");*/
+        background-size: contain;      /* preenche a tela */
+        background-position: center; /* centraliza */
+        background-repeat: no-repeat; 
+        object-fit: cover;
+        display:; /* Remove possíveis margens indesejadas */   
+        object-fit: fill; /* Estica a imagem para preencher todo o espaço (padrão) */  
+        /*display: flex;*/
+        max-width: 100%;
+        height: 110%;
+        width: 100%;   
+      
+      object-fit: fill; /* Estica a imagem para preencher todo o espaço (padrão) */
+
+
+        
+    }
+
+    /* BARRA DE CONTROLES TOPO */
+    .controls {
+        padding: 8px;
+        background-color: BLUE;
+        text-align: center;
+        border-bottom: 1px solid CYAN;
+        /*filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);*/
+       background-image: url("planodefundo1.png");
+
+
+    }
+
+   /* BOTOES DO TOPO */
+    button {
+        padding: 8px 14px;
+        margin: 4px;
+        cursor: pointer;
+        background: transparent;
+        color: orange;
+        border-bottom: 2px solid CYAN;
+
+    }
+
+  
+    /* CONTAINER DA IMAGEM */
+    #imageContainer {
+        width: 100%;
+        height: calc(100% -50px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+      
+    }
+
+    #previewImage {
+        max-width: none;
+        max-height: none;
+    }
+
+
+
+  
+
+</style>
+
+</body>
+</html>
