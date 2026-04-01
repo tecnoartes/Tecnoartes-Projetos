@@ -1,5 +1,5 @@
 # Tecnoartes-Projetos
-tecnologias, artes, programação e serviços.
+tecnologias, artes, programação e Jogos.
 ---
 ## Oiii eu sou a Diego Brito, criador de conteúdo de programação tecnologia e jogos!
 
